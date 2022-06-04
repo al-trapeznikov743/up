@@ -1,0 +1,41 @@
+OpenAPI - основные типы данных
+  Тип данный схемы определяется ключом "type", например: type: string
+
+  OpenAPI определяет следующие базовые тьипы данных:
+    - string (включая даты и файлы);
+    - number;
+    - integer;
+    - boolean;
+    - array;
+    - object.
+
+  Вместо null типа OpenAPI использует атрибут nullable.
+
+  Смешанные типы можно описать с помощью oneOf и anyOf, которые задают список
+  альтернативных типов:
+
+    oneOf:
+    - type: string
+    - type: integer
+
+  Массивы и объекты:
+
+    type: array
+    items:
+      type: array
+      items:
+        type: integer
+
+    type: object
+    properties:
+      id:
+        type: integer
+      username:
+        type: string
+      name:
+        type: string
+    required:
+      - id
+      - username
+
+https://swagger.io/docs/specification/data-models/data-types/

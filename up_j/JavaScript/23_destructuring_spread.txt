@@ -1,0 +1,56 @@
+1) Деструктуризация
+  Деструктуризация (destructuring assignment - деструктурирующее присваивание)
+  – это особый синтаксис присваивания, который позволяет "распаковать" массив
+  либо объект в несколько переменных, разбив его на части.
+
+  const arr = ['first', 'last'];
+  const [first, last] = arr;
+
+  const obj = {one: 1, two: 2};
+  const {one, two} = obj;
+
+  Значения по умолчанию:
+    Если значений в массиве меньше, чем переменных – ошибки не будет, просто
+    присвоится undefined.
+
+    const [firstName, lastName] = [];
+    alert(firstName); // undefined
+
+    const rtFunc = (prop) => {
+      const {first} = prop || {};
+
+      console.log(first);
+    }
+
+    rtFunc(); // undefined
+
+2) Spread оператор
+  - "разворачивает" массивы:
+    const arr1 = [1,2];
+    const arr2 = [3,4];
+
+    const arr3 = [...arr1, ...arr2]; 
+
+  - "разворачивает" объекты:
+    const obj1 = {one: 1, two: 2};
+    const obj2 = {three: 3, four: 4};
+
+    const obj3 = {...obj1, ...obj2};
+
+3) Rest (остаточные параметры)
+  Позволяет представить неограниченное множество аргументов в виде массива
+
+  const func1 = (arg1, arg2, ...args) => {
+    ->какая-то логика
+  } - здесь он собирает "все остальное" в массив.
+
+  Так же при деструктуризации, к примеру, объекта:
+    const obj1 = {
+      one: 1,
+      two: 2,
+      three: 3,
+      four: 4
+    };
+
+    const {one, two, ...some} - собрали оставшееся в объект some.
+

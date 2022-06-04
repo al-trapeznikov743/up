@@ -1,0 +1,90 @@
+Fetch, XMLHttpRequest, SSE, WebSockets
+
+1) XMLHttpRequest
+  XMLHttpRequest это API, который предоставляет клиенту функциональность для
+  обмена данными между клиентом и сервером. Данный API предоставляет простой
+  способ получения данных по ссылке без перезагрузки страницы. Это позволяет
+  обновлять только часть веб-страницы не прерывая пользователя.
+
+  const url = 'https://jsonplaceholder.typicode.com/users';
+
+  const sendRequest = (method, url) => {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+
+      xhr.open(method, url);
+
+      xhr.responseType = 'json';
+
+      xhr.onload = () => {
+        if (xhr.status >= 400) {
+          reject(xhr.response);
+        } else {
+          resolve(xhr.response);
+        }
+      }
+
+      xhr.onerror = () => {
+        reject(xhr.response);
+      }
+
+      xhr.send();
+    })
+  }
+
+  sendRequest('GET', url)
+    .then(data => console.log(data))
+    .catch(err => console.log(err));
+
+2) Fetch
+  Fetch API предоставляет интерфейс JavaScript для работы с запросами и
+  ответами HTTP. Он также предоставляет глобальный метод fetch(),
+  который позволяет легко и логично получать ресурсы по сети асинхронно.
+
+  const requestUrl = 'https://jsonplaceholder.typicode.com/users';
+
+  const requestBody = {
+    name: 'Lexey',
+    age: 35
+  };
+
+  const sendRequest = async (method, url, data) => {
+    const response = await fetch(url, {
+      method,
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    const resData = await response.json();
+
+    console.log('resData: ', resData);
+  };
+
+  sendRequest('POST', requestUrl, requestBody);
+
+3) SSE (Server Sent Events)
+  Спецификация Server-Sent Events описывает встроенный класс EventSource,
+  который позволяет поддерживать соединение с сервером и получать от него события.
+
+  Как и в случае с WebSocket, соединение постоянно.
+
+  Но есть несколько важных различий:
+    1) Однонаправленность (данные посылает только сервер) - двунаправленность в случае с webSocket;
+    2) Данные: только текст, в случае с webSocket - бинарные и текстовые данные;
+    3) Протокол передачи: HTTP, "webSocket" в случае webSocket.
+
+  const eventSource = new EventSource("/events/subscribe");
+
+4) WebSockets
+  Протокол WebSocket, описанный в спецификации RFC 6455, обеспечивает
+  возможность обмена данными между браузером и сервером через постоянное
+  соединение. Данные передаются по нему в обоих направлениях в виде
+  «пакетов», без разрыва соединения и дополнительных HTTP-запросов.
+
+  Чтобы открыть веб-сокет-соединение, нам нужно создать объект new WebSocket,
+  указав в url-адресе специальный протокол ws:
+
+  const socket = new WebSocket("ws://javascript.info");
+  

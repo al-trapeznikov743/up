@@ -1,0 +1,15 @@
+Classnames - простая библиотека JS для комбинирования имен классов.
+
+Функция classNames принимает любое количество аргументов, которые могут быть строкой или объектом.
+Аргумент 'foo'сокращен от { foo: true }. Если значение, связанное с данным ключом, ложно, этот ключ
+не будет включен в вывод.
+
+const classNames = require('classnames');
+
+classNames('foo', 'bar'); // => 'foo bar'
+
+classNames('foo', { bar: true }); // => 'foo bar'
+
+classNames({ foo: true }, { bar: true }); // => 'foo bar'
+
+classNames({ 'foo-bar': false }); // => ''

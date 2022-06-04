@@ -1,0 +1,30 @@
+В Git есть специальная команда cherry-pick, которая позволяет вставлять в текущую ветку изменения
+из любого коммита.
+
+
+Перенос последнего коммит из ветки test в текущую ветку:
+
+  - git cherry-pick test
+
+
+Перенос конкретного коммита на текущую ветку:
+
+  - git cherry-pick <hash-commit-1>
+
+Если же нужно перенести не один, а несколько подряд идущих коммитов от <hash-commit-begin> до
+<hash-commit-end>, то это делается похожим образом:
+
+  - git cherry-pick <hash-commit-begin>..<hash-commit-end>
+
+Если же вы хотите, чтобы при переносе изменений коммит не создавался, то используйте параметр -n
+(—no-commit):
+
+  - git cherry-pick -n d112ecf96
+
+
+Как и при операции git rebase в процессе переноса коммита могут возникнуть конфликты. Как и при
+обычном git merge их следует разрешить, добавить изменения в индекс с помощью git add, а затем
+продолжить запустив - git cherry-pick --continue.
+
+
+http://paratapok.ru/developer-tools/2593_kak-v-git-perenesti-commit-iz-odnoj-vetki-v-druguyu/
