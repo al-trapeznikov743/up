@@ -1,0 +1,60 @@
+"Порталы позволяют рендерить дочерние элементы в DOM-узел, который находится вне
+DOM-иерархии родительского компонента."
+
+Суть в том что: все компоненты и весь код, который рендерит реакт, рендерится
+внутри одного корневого элемента DOM. Порталы же позволяют добавлять DOM элементы
+за пределами корневого элемента.
+
+Портал - это компонент, который рендерит своё содержимое за пределами корневого
+div-а.
+
+Несмотря на то что внутри DOM-дерева портал находится вне корневого элемента, он
+является дочерним элементом у дива в react.
+
+Событие созданное внутри портала будет распространятся к предкам во всем дереве реакт.
+
+Например такое поведение позволяет отображать элементы за пределами блоков со
+свойством overflow: hidden и при этом минимально менять дерево компонентов.
+
+Кейсы использования: модальные/диалоговые окна, тултипы.
+
+  ReactDOM.createPortal(child, container)
+
+  Первый аргумент (child) - это любой React-компонент, который может быть
+  отрендерен, такой как элемент, строка или фрагмент. Следующий аргумент
+  (container) - это DOM-элемент.
+
+Пример кода:
+  import React, {Component} from 'react';
+  import ReactDOM from 'react-dom';
+
+  class MyPortal extends Component {
+    el = document.createElement('div');
+
+    componentDidMount() {
+      document.body.appendChild(this.el);
+    }
+
+    componentDidMount() {
+      document.body.removeChild(this.el);
+    }
+
+    render() {
+      return ReactDOM.createPortal(this.props.children, this.el);
+    }
+  }
+
+  class Example extends Component {
+    render() {
+      return (
+        <>
+          <span>Some text</span>
+          <MyPortal>
+            <div>TEST PORTAL</div>
+          </MyPortal>
+        </>
+      );
+    }
+  }
+
+  

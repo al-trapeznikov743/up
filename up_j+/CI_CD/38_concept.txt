@@ -42,7 +42,7 @@ Continuous deployment
   - CircleCI;
   - Azure Pipelines;
   - GitLab;
-  - Atlassian Bamboo.
+  - Atlassian Bamboo...
 
 Ресурсы на почитать:
   https://habr.com/ru/company/otus/blog/515078/
